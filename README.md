@@ -1,88 +1,94 @@
 
 # gif.js
 
-JavaScript GIF encoder that runs in your browser.
+一个用JavaScript实现的GIF编码库,可用于直接在中浏览器生成GIF图片。
 
-Uses typed arrays and web workers to render each frame in the background, it's really fast!
+基于typed arrays（Uint8Array）和 webWorkers 渲染每一帧，运行起来很快！
 
-**Demo** - http://jnordberg.github.io/gif.js/
+**官方示例** - http://jnordberg.github.io/gif.js/
 
-Works in browsers supporting: [Web Workers](http://www.w3.org/TR/workers/), [File API](http://www.w3.org/TR/FileAPI/) and [Typed Arrays](https://www.khronos.org/registry/typedarray/specs/latest/)
+要使用gif.js，必须保证所在环境支持: [WebWorkers - JS子进程](http://www.w3.org/TR/workers/), [File API - Blob](http://www.w3.org/TR/FileAPI/) 和 [Typed Arrays - 二进制数据处理](http://www.cnblogs.com/iicx/p/3859969.html)
 
-Tested in
+官方之前测试过的环境们：
   * Google Chrome
   * Firefox 17
   * Safari 6
   * Internet Explorer 10
   * Mobile Safari iOS 6
 
-## Usage
+## 使用方法
 
-Include `gif.js` found in `dist/` in your page. Also make sure to have `gif.worker.js` in the same location.
+建议将`dist/`目录下的文件放置在项目目录中，将`gif.js`引用到要使用她的页面。（同时保证 `gif.worker.js`在gif.js相同的目录位置。）
+
+代码示例：
 
 ```javascript
+
+// 实例化一个GIF对象
 var gif = new GIF({
   workers: 2,
   quality: 10
 });
 
-// add an image element
+// 通过img元素对象来创建帧
 gif.addFrame(imageElement);
 
-// or a canvas element
+// 通过canvas元素对象创建帧
 gif.addFrame(canvasElement, {delay: 200});
 
-// or copy the pixels from a canvas context
+// 通过canvas上下文对象创建帧
 gif.addFrame(ctx, {copy: true});
 
+// GIF生成完毕后通过异步事件监听做相应处理
 gif.on('finished', function(blob) {
   window.open(URL.createObjectURL(blob));
 });
 
+// 渲染GIF图
 gif.render();
 ```
 
-## Options
+## GIF类配置项 Options 
 
-Options can be passed to the constructor or using the `setOptions` method.
+Options 可以直接传给构造方法，也可以在实例化之后通过 `setOptions` 方法去设置。
 
-| Name         | Default         | Description                                        |
+| 配置项key    | 默认值          | 说明                                               |
 | -------------|-----------------|----------------------------------------------------|
-| repeat       | `0`             | repeat count, `-1` = no repeat, `0` = forever      |
-| quality      | `10`            | pixel sample interval, lower is better             |
-| workers      | `2`             | number of web workers to spawn                     |
-| workerScript | `gif.worker.js` | url to load worker script from                     |
-| background   | `#fff`          | background color where source image is transparent |
-| width        | `null`          | output image width                                 |
-| height       | `null`          | output image height                                |
+| repeat       | `0`             | 循环播放次数, `-1` = 不循环播放, `0` = 一直循环    |
+| quality      | `10`            | 像素采样间隔, 越低越好                             |
+| workers      | `2`             | 用于图像计算处理的JS子进程数                       |
+| workerScript | `gif.worker.js` | 用于指webWorker脚本来源URL                         |
+| background   | `#fff`          | 当原图是镂空透明图时候用于设定背景色               |
+| width        | `null`          | 输出图像的宽度                                     |
+| height       | `null`          | 输出图像的高度                                     |
 | transparent  | `null`          | transparent hex color, `0x00FF00` = green          |
 
-If width or height is `null` image size will be deteremined by first frame added.
+如果没有通过width\height设置GIF输出时的宽高，将自动从第一帧图像尺寸获取。
 
-### addFrame options
+### 添加帧（addFrame）方法的配置项(options)
 
-| Name         | Default         | Description                                        |
+| 配置项key    | 默认值          | 说明                                               |
 | -------------|-----------------|----------------------------------------------------|
-| delay        | `500`           | frame delay                                        |
-| copy         | `false`         | copy the pixel data                                |
+| delay        | `500`           | 帧延迟的毫秒时长值                                 |
+| copy         | `false`         | 复制像素数据                                       |
 
-## Wishlist
+## 愿景
 
-If you want to contribute, here's some stuff that would be nice to have.
+如果你想多gif.js做一些贡献，下面几个方向都可以去搞一搞。
 
- * Tests
- * Fallbacks and polyfills for old browsers
- * Dithering!
+ * 测试
+ * 降级兼容低版本浏览器的研究
+ * 抖动显示
 
-## Acknowledgements
+## 致谢
 
-gif.js is based on:
+gif.js 的参考文献:
 
- * [Kevin Weiner's Animated gif encoder classes](http://www.fmsware.com/stuff/gif.html)
- * [Neural-Net color quantization algorithm by Anthony Dekker](http://members.ozemail.com.au/~dekker/NEUQUANT.HTML)
- * [Thibault Imbert's as3gif](https://code.google.com/p/as3gif/)
+ * [Kevin Weiner's Animated gif encoder classes - 凯文·维纳的GIF动画编码器类](http://www.fmsware.com/stuff/gif.html)
+ * [Neural-Net color quantization algorithm by Anthony Dekker - 安东尼·德克尔的神经网络颜色量化算法](http://members.ozemail.com.au/~dekker/NEUQUANT.HTML)
+ * [Thibault Imbert's as3gif - 迪波因贝特的AS3GIF](https://code.google.com/p/as3gif/)
 
-## License
+## 版权许可声明
 
 The MIT License (MIT)
 
