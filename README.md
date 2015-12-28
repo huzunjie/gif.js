@@ -39,6 +39,9 @@ gif.addFrame(canvasElement, {delay: 200});
 // 通过canvas上下文对象创建帧
 gif.addFrame(ctx, {copy: true});
 
+// 通过video当前画面创建帧
+gif.addFrame(videoElement, {copy: true});
+
 // GIF生成完毕后通过异步事件监听做相应处理
 gif.on('finished', function(blob) {
   window.open(URL.createObjectURL(blob));
