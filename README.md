@@ -33,13 +33,13 @@ var gif = new GIF({
 // 通过img元素对象来创建帧
 gif.addFrame(imageElement);
 
-// 通过canvas元素对象创建帧
+// 通过canvas元素对象创建帧 示例：http://jnordberg.github.io/gif.js/tests/canvas.html
 gif.addFrame(canvasElement, {delay: 200});
 
 // 通过canvas上下文对象创建帧
 gif.addFrame(ctx, {copy: true});
 
-// 通过video当前画面创建帧
+// 通过video当前画面创建帧 示例：http://jnordberg.github.io/gif.js/tests/video.html
 gif.addFrame(videoElement, {copy: true});
 
 // GIF生成完毕后通过异步事件监听做相应处理
