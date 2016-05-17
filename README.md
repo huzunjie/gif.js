@@ -1,9 +1,9 @@
 
 # gif.js
 
-一个用JavaScript实现的GIF编码库,可用于直接在中浏览器生成GIF图片。
+一个用JavaScript实现的GIF编码库,可用于直接在浏览器中生成GIF图片。
 
-基于typed arrays（Uint8Array）和 webWorkers 渲染每一帧，运行起来很快！
+基于typed arrays（Uint8Array）和 webWorkers 渲染每一帧，运行起来很快！（官方如是说 --- huzunjie备注）
 
 **官方示例** - http://jnordberg.github.io/gif.js/
 
@@ -77,7 +77,7 @@ Options 可以直接传给构造方法，也可以在实例化之后通过 `setO
 
 ## 愿景
 
-如果你想多gif.js做一些贡献，下面几个方向都可以去搞一搞。
+如果你想为gif.js做一些贡献，下面几个方向都可以去搞一搞。
 
  * 测试
  * 降级兼容低版本浏览器的研究
